@@ -1,0 +1,29 @@
+import cv2
+import glob
+import numpy as np
+import matplotlib.pyplot as plt
+import porespy as ps
+import csv
+np.random.seed(0)
+
+def exportAsCSV(values, outputFile):
+    outFile = open(outputFile, 'w')
+    writer = csv.writer(outFile)
+    for row in values:
+        writer.writerows(row)
+
+
+import inspect
+inspect.signature(ps.metrics.porosity)
+
+path = "C:/Users/kouajjani/Desktop/ANNTrial/00.Benchmarking/01.Image-datasets/archive/cell_images/Parasitized/*.*"
+
+img_number = 1
+
+voxel_size = 5.9  # microns/voxel
+
+for file in glob.glob(path):
+    print(file);
+    img = cv2.imread(file, 0)
+    e = ps.metrics.porosity(img)
+    exportAsCSV(e, "C:/Users/kouajjani/Desktop/ANNTrial/00.Benchmarking/01.Image-datasets/archive/cell_images/Parasitized/list_porespy.csv" )
